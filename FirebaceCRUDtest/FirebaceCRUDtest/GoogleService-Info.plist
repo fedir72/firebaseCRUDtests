@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>498457358809-hlps4cmmurc8ro47u7h5jo5uiohdgm57.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.498457358809-hlps4cmmurc8ro47u7h5jo5uiohdgm57</string>
+	<key>API_KEY</key>
+	<string>AIzaSyAq30DL5m_xA9ntNyAKPg5FTI1aHi3AUDY</string>
+	<key>GCM_SENDER_ID</key>
+	<string>498457358809</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>fedii.ihor.FirebaceCRUDtest</string>
+	<key>PROJECT_ID</key>
+	<string>firebacecrud-8a8e4</string>
+	<key>STORAGE_BUCKET</key>
+	<string>firebacecrud-8a8e4.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:498457358809:ios:da15a6c9dee3588ebba9c8</string>
+</dict>
+</plist>
