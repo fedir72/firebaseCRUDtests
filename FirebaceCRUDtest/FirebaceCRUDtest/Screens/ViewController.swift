@@ -7,16 +7,46 @@
 
 import UIKit
 
+
 class ViewController: UIViewController {
-    
+ 
     @IBOutlet weak var carImageView: UIImageView!
     @IBOutlet weak var field1: UILabel!
     @IBOutlet weak var field2: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+      
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+//        if AuthService.shared.currentUser != nil {
+//            print("done")
+//        } else {
+//            showSighVC()
+//            print("you need register")
+//        }
+    }
+    
+    @IBAction func showRegisterFormTapped(_ sender: Any) {
+        showSighVC()
+    }
+    
+    @IBAction func deleteuserTapped(_ sender: Any) {
+        AuthService.shared.deleteCurrentUser { error in
+            var alertText = ""
+            if let error {
+                alertText = error.localizedDescription
+            } else {
+                alertText = "user is succesfuly deleted"
+            }
+            self.someWrongAlert("atension",
+                                alertText)
+        }
+    }
+    
+
     
 
     @IBAction func zaporPressed(_ sender: Any) {
@@ -59,3 +89,10 @@ class ViewController: UIViewController {
     
 }
 
+private extension ViewController {
+    func showSighVC() {
+        guard let vc = storyboard?.instantiateViewController(withIdentifier: "AuthViewController"),
+            vc as? AuthViewController != nil else { return }
+            navigationController?.pushViewController(vc, animated: true)
+    }
+}
