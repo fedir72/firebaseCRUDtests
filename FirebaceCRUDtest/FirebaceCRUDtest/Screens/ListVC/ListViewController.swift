@@ -68,7 +68,6 @@ extension ListViewController: UITableViewDelegate {
         let item = dataSourse[indexPath.row]
         self.overrideFoodItem(item) { res in
             switch res {
-                
             case .success(let item):
                 self.dataSourse[indexPath.row] = item
                 self.tableView.reloadRows(at: [indexPath], with: .fade)
@@ -168,15 +167,30 @@ private extension ListViewController {
                newPrice.isEmpty == false {
                 price = Int(newPrice) ?? 2
             }
-            let new = FoodItem(id: item.id, name: item.name, numberOfItems: number, price: price)
-            FirestoreManager.shared.createFoodItem(foodItem: new) { result in
-                switch result {
-                case .success(let item):
+            FirestoreManager.shared.updateFood(by: item.id,
+                                               num: number,
+                                               price: price) { err in
+                if let err {
+                    completion(.failure(err))
+                } else {
+                   let item = FoodItem(id: item.id,
+                             name: item.name,
+                             numberOfItems: number,
+                             price: price)
                     completion(.success(item))
-                case .failure(let failure):
-                    completion(.failure(failure))
                 }
             }
+            
+            
+//            let new = FoodItem(id: item.id, name: item.name, numberOfItems: number, price: price)
+//            FirestoreManager.shared.createFoodItem(foodItem: new) { result in
+//                switch result {
+//                case .success(let item):
+//                    completion(.success(item))
+//                case .failure(let failure):
+//                    completion(.failure(failure))
+//                }
+//            }
         })
         present(alert, animated: true)
     }

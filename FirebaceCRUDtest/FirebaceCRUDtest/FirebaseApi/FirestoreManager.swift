@@ -42,12 +42,12 @@ class FirestoreManager {
     //MARK: - Food CRUD
     
     func getFoodItems(completion: @escaping (Result<[FoodItem],Error>) -> Void) {
-        self.foodRef.getDocuments { qsnap, error in
+        foodRef.getDocuments { qsnap, error in
             if let error { completion(.failure(error)) }
             if let qsnap {
                 var orders = [FoodItem]()
                 for doc in qsnap.documents {
-                    if var item = FoodItem(doc: doc) {
+                    if let item = FoodItem(doc: doc) {
                         orders.append(item)
                     }
                     completion(.success(orders))
@@ -82,8 +82,7 @@ class FirestoreManager {
                     num: Int,
                     price: Int,
                     completion: @escaping (Error?) -> ()) {
-        let doc = db.document(id)
-        doc.updateData([
+        foodRef.document(id).updateData([
              "numberOfItems": num,
             "price": price
         ]) { err in
