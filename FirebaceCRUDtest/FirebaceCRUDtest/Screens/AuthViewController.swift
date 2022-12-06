@@ -10,7 +10,7 @@ import FirebaseAuth
 
 class AuthViewController: UIViewController {
     var userNow: User? {
-        didSet {  print("User: \(userNow?.uid) , \(userNow?.phoneNumber)") }
+        didSet {  print("User: \(userNow!.uid) , \(String(describing: userNow!.phoneNumber))") }
     }
 
     @IBOutlet weak private var emailTextField: UITextField!
@@ -30,7 +30,8 @@ class AuthViewController: UIViewController {
               pass.count > 5 else {
               self.someWrongAlert(
                 "Attension!!!",
-                " Password should be more than 5 characters")
+                " Password should be more than 5 characters",
+              completion: {})
                 return
               }
         
@@ -42,9 +43,11 @@ class AuthViewController: UIViewController {
                 print("error of registration: \(err.localizedDescription)")
             }
         }
-        
+        emtyFields()
     }
     
+    
+   
     
     @IBAction func loginButtonTapped(_ sender: Any) {
         guard let email = emailTextField.text,
@@ -53,7 +56,8 @@ class AuthViewController: UIViewController {
               pass.count > 5 else {
               self.someWrongAlert(
                 "Attension!!!",
-                " Password should be more than 5 characters")
+                " Password should be more than 5 characters",
+                completion: {})
                 return
               }
         
@@ -63,13 +67,20 @@ class AuthViewController: UIViewController {
             case .success(let res):
                 self.userNow = res
             case .failure(let err):
-                print("error of registration: \(err.localizedDescription)")
+                print("error of logging: \(err.localizedDescription)")
                 
             }
         }
+        emtyFields()
+    }
+    
+}
+
+private extension AuthViewController {
+    
+    func emtyFields() {
         self.passwordTextField.text = ""
         self.emailTextField.text = ""
         self.repeatPasswordTextfield.text = ""
     }
-    
 }

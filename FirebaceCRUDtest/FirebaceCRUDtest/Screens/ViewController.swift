@@ -42,7 +42,8 @@ class ViewController: UIViewController {
                 alertText = "user is succesfuly deleted"
             }
             self.someWrongAlert("atension",
-                                alertText)
+                                alertText,
+                                completion: {})
         }
     }
     
@@ -50,13 +51,13 @@ class ViewController: UIViewController {
     
 
     @IBAction func zaporPressed(_ sender: Any) {
-        ApiManager.shared.getPost(collection: "cars",
+        FirestoreManager.shared.getPost(collection: "cars",
                                   docName: "smallCar") { doc in
             guard let doc = doc else { return }
             self.field1.text = doc.field1
             self.field2.text = doc.field2
         }
-        ApiManager.shared.getImage(picName: "zapor") { image in
+        StorageManager.shared.getImage(picName: "zapor") { image in
             self.carImageView.image = image
         }
         
@@ -64,25 +65,25 @@ class ViewController: UIViewController {
     }
     
     @IBAction func nivaPressed(_ sender: Any) {
-        ApiManager.shared.getPost(collection: "cars",
+        FirestoreManager.shared.getPost(collection: "cars",
                                   docName: "mediumCar") { doc in
             guard let doc = doc else { return }
             self.field1.text = doc.field1
             self.field2.text = doc.field2
         }
-        ApiManager.shared.getImage(picName: "niva") { image in
+        StorageManager.shared.getImage(picName: "niva") { image in
             self.carImageView.image = image
         }
             }
     
     @IBAction func volgaPressed(_ sender: Any) {
-        ApiManager.shared.getPost(collection: "cars",
+        FirestoreManager.shared.getPost(collection: "cars",
                                   docName: "bigCar") { doc in
             guard let doc = doc else { return }
             self.field1.text = doc.field1
             self.field2.text = doc.field2
         }
-        ApiManager.shared.getImage(picName: "volga") { image in
+        StorageManager.shared.getImage(picName: "volga") { image in
             self.carImageView.image = image
         }
     }
