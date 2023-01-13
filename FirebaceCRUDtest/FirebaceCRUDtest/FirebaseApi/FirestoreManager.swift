@@ -5,12 +5,10 @@
 //  Created by Fedii Ihor on 30.11.2022.
 //
 
-import Foundation
 import UIKit
 import Firebase
 import FirebaseStorage
-import FirebaseAuth
-import FirebaseDatabase
+
 
 class FirestoreManager {
     static let shared = FirestoreManager()

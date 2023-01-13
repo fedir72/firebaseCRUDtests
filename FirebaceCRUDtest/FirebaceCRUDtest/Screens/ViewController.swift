@@ -9,6 +9,10 @@ import UIKit
 
 
 class ViewController: UIViewController {
+    
+    var images: [UIImage] = [UIImage(named: "girl01")!,
+                             UIImage(named: "girl02")!,
+                             UIImage(named: "girl03")!]
  
     @IBOutlet weak var carImageView: UIImageView!
     @IBOutlet weak var field1: UILabel!
@@ -21,6 +25,7 @@ class ViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
 //        if AuthService.shared.currentUser != nil {
 //            print("done")
 //        } else {
@@ -28,6 +33,12 @@ class ViewController: UIViewController {
 //            print("you need register")
 //        }
     }
+    
+    
+    @IBAction func addNewImageButtonPressed(_ sender: UIButton) {
+        self.searchPhoto(sender)
+    }
+    
     
     @IBAction func showRegisterFormTapped(_ sender: Any) {
         showSighVC()
@@ -95,5 +106,34 @@ private extension ViewController {
         guard let vc = storyboard?.instantiateViewController(withIdentifier: "AuthViewController"),
             vc as? AuthViewController != nil else { return }
             navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    func searchPhoto(_ sender: UIButton) {
+        let act = UIImagePickerController()
+        act.delegate = self
+        act.sourceType = .photoLibrary
+        present(act, animated: true)
+        
+        
+    }
+}
+extension ViewController: UIImagePickerControllerDelegate,
+                          UINavigationControllerDelegate {
+    func imagePickerController(_ picker: UIImagePickerController,
+                               didFinishPickingMediaWithInfo info:
+                               [UIImagePickerController.InfoKey : Any]) {
+        picker.dismiss(animated: true, completion:  nil)
+        guard let image = info[UIImagePickerController.InfoKey.originalImage]
+                as? UIImage else {return}
+        StorageManager.shared.uploadImage(image: image) { res in
+            switch res {
+                
+            case .success(let url):
+                print(url)
+            case .failure(let err):
+                print(err.localizedDescription)
+            }
+        }
+        print("image",image.description)
     }
 }
